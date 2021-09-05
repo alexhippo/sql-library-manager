@@ -41,18 +41,28 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  const err = new Error();
+  err.message = `Sorry! We couldn't find the page you were looking for.`;
+  err.status = 404;
+  console.log(`Error Status ${err.status}: ${err.message}`);
+  next(err);
 });
 
-// error handler
+// global error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  if (err.status === 404) {
+    res.status(404).render('page-not-found', err);
+  } else {
+    err.message = "Sorry, something went wrong. Please try again later.";
+    err.status = err.status || 500;
+    console.log(`Error Status ${err.status}: ${err.message}`);
+    res.status(err.status || 500).render('error', err);
+  }
 });
 
 module.exports = app;
