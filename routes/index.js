@@ -18,6 +18,7 @@ function asyncHandler(cb) {
 router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
   console.log(books.map(books => books.toJSON()));
+  res.render("index", { books, title: "Books" });
 }));
 
 module.exports = router;
