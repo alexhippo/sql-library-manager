@@ -33,7 +33,12 @@ router.post('/new', asyncHandler(async (req, res) => {
 
 /* GET an individual book */
 router.get("/:id", asyncHandler(async (req, res) => {
-  console.log("This is where we retrieve and display a book by ID");
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    res.render('update-book', { book, title: book.title })
+  } else {
+    res.sendStatus(404);
+  }
 }));
 
 /* POST an individual book */
