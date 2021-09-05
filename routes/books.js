@@ -32,12 +32,15 @@ router.post('/new', asyncHandler(async (req, res) => {
 }));
 
 /* GET an individual book */
-router.get("/:id", asyncHandler(async (req, res) => {
+router.get("/:id", asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     res.render('update-book', { book, title: book.title })
   } else {
-    res.sendStatus(404);
+    const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
+    err.status = 404;
+    console.log(`Error Status ${err.status}: ${err.message}`);
+    next(err);
   }
 }));
 
