@@ -50,9 +50,23 @@ router.get("/:id", asyncHandler(async (req, res, next) => {
   }
 }));
 
-/* POST an individual book */
+/* POST an update to an individual book */
 router.post("/:id", asyncHandler(async (req, res) => {
-  console.log("This is where we update a book's details by ID");
+  let book;
+  try {
+    book = await Book.findByPk(req.params.id);
+    if (book) {
+      await book.update(req.body);
+      res.redirect('/');
+    } else {
+      const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
+      err.status = 404;
+      console.log(`Error Status ${err.status}: ${err.message}`);
+      next(err);
+    }
+  } catch (error) {
+    throw error; // @todo: Fix this up with proper validation later
+  }
 }));
 
 /* POST an individual book */
