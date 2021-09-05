@@ -28,7 +28,13 @@ router.get('/new', asyncHandler(async (req, res) => {
 
 /* POST books/new form */
 router.post('/new', asyncHandler(async (req, res) => {
-  console.log("This is where we submit the form to add new books");
+  let book;
+  try {
+    book = await Book.create(req.body);
+    res.redirect('/');
+  } catch (error) {
+    throw error; // @todo: Fix this up with validation later
+  }
 }));
 
 /* GET an individual book */
