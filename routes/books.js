@@ -23,7 +23,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
-  console.log("This is where we display the form to add new books");
+  res.render('new-book', { title: "New Book" })
 }));
 
 /* POST books/new form */
