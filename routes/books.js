@@ -17,7 +17,7 @@ function asyncHandler(cb) {
 /* GET books listing */
 router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
-  console.log(books.map(books => books.toJSON()));
+  console.log(books.map(books => books.toJSON())); // @todo: Investigate bug where IDs skip
   res.render("index", { books, title: "Books" });
 }));
 
@@ -33,7 +33,13 @@ router.post('/new', asyncHandler(async (req, res) => {
     book = await Book.create(req.body);
     res.redirect('/');
   } catch (error) {
-    throw error; // @todo: Fix this up with validation later
+    if (error.name === "SequelizeValidationError") {
+      book = await Book.build(req.body);
+      book.id = req.params.id;
+      res.render('new-book', { book, errors: error.errors, title: "New Book" })
+    } else {
+      throw error;
+    }
   }
 }));
 
@@ -65,10 +71,15 @@ router.post("/:id", asyncHandler(async (req, res) => {
       next(err);
     }
   } catch (error) {
-    throw error; // @todo: Fix this up with proper validation later
+    if (error.name === "SequelizeValidationError") {
+      book = await Book.build(req.body);
+      book.id = req.params.id;
+      res.render('update-book', { book, errors: error.errors, title: "New Book" })
+    } else {
+      throw error;
+    }
   }
 }));
-
 
 /* Delete individual book */
 router.post("/:id/delete", asyncHandler(async (req, res) => {
