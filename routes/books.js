@@ -24,7 +24,6 @@ router.get('/', asyncHandler(async (req, res) => {
 
 /* POST search books listing */
 router.post('/', asyncHandler(async (req, res) => {
-  console.log(req.body);
   const books = await Book.findAll({
     where: {
       [Op.or]: {
@@ -42,7 +41,7 @@ router.post('/', asyncHandler(async (req, res) => {
         },
       }
     }
-  })
+  });
   res.render("search-results", { books, title: "Search Results" });
 }));
 
