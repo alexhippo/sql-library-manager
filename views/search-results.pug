@@ -2,8 +2,6 @@ extends layout
 
 block content
   h1= title
-  p  
-    a(href="/books/new").button Create New Book 
   p 
     form(action="/books", method="post")
       label(for="search") Search books  
@@ -24,3 +22,5 @@ block content
           td= book.author 
           td= book.genre
           td= book.year
+  p 
+    a(href='/').button Back to Home

@@ -25,6 +25,10 @@ a.button, input[type=submit] {
   color: red;
 }
 
+input[value=Search] {
+  margin-left: 5px;
+}
+
 /* Books Table Styling */
 table.books thead td {
   font-weight: bold;

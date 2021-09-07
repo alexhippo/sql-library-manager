@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Book = require("../models").Book;
+const { Op } = require("sequelize");
 
 /* Handler function to wrap each route. */
 function asyncHandler(cb) {
@@ -17,8 +18,32 @@ function asyncHandler(cb) {
 /* GET books listing */
 router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
-  console.log(books.map(books => books.toJSON())); // @todo: Investigate bug where IDs skip
+  console.log(books.map(books => books.toJSON()));
   res.render("index", { books, title: "Books" });
+}));
+
+/* POST search books listing */
+router.post('/', asyncHandler(async (req, res) => {
+  console.log(req.body);
+  const books = await Book.findAll({
+    where: {
+      [Op.or]: {
+        title: {
+          [Op.like]: `%${req.body.search}%`
+        },
+        author: {
+          [Op.like]: `%${req.body.search}%`
+        },
+        genre: {
+          [Op.like]: `%${req.body.search}%`
+        },
+        year: {
+          [Op.like]: `%${req.body.search}%`
+        },
+      }
+    }
+  })
+  res.render("search-results", { books, title: "Search Results" });
 }));
 
 /* GET books/new form */
