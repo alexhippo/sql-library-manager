@@ -21,15 +21,14 @@ router.get('/', asyncHandler(async (req, res) => {
   res.render("index", { books, title: "Books" });
 }));
 
-/* Pagination */
+/* Pagination routes */
 router.get('/page/:id', asyncHandler(async (req, res) => {
-  console.log(req.params.id);
   const pagination = await Book.findAndCountAll({
     limit: 10,
     offset: req.params.id * 10
   });
-  console.log(pagination.count, pagination.rows);
-  res.render("index", { books: pagination.rows, title: "Books" });
+  const numberOfPages = Math.ceil(pagination.count / 10);
+  res.render("index", { books: pagination.rows, title: "Books", numberOfPages });
 }));
 
 /* POST search books listing */
