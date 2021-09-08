@@ -18,8 +18,18 @@ function asyncHandler(cb) {
 /* GET books listing */
 router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
-  console.log(books.map(books => books.toJSON()));
   res.render("index", { books, title: "Books" });
+}));
+
+/* Pagination */
+router.get('/page/:id', asyncHandler(async (req, res) => {
+  console.log(req.params.id);
+  const pagination = await Book.findAndCountAll({
+    limit: 10,
+    offset: req.params.id * 10
+  });
+  console.log(pagination.count, pagination.rows);
+  res.render("index", { books: pagination.rows, title: "Books" });
 }));
 
 /* POST search books listing */
@@ -41,6 +51,7 @@ router.post('/', asyncHandler(async (req, res) => {
         },
       }
     }
+
   });
   if (books.length > 0) {
     res.render("search-results", { books, title: "Search results" });
