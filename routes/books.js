@@ -42,7 +42,11 @@ router.post('/', asyncHandler(async (req, res) => {
       }
     }
   });
-  res.render("search-results", { books, title: "Search Results" });
+  if (books.length > 0) {
+    res.render("search-results", { books, title: "Search results" });
+  } else {
+    res.render("no-search-results", { title: "Search results" });
+  }
 }));
 
 /* GET books/new form */

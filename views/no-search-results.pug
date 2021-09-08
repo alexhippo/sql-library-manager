@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p 
+    form(action="/books", method="post")
+      label(for="search") Search books  
+      input(type="text", name="search")
+      input(type="submit" value="Search")
+  h2 Sorry, we couldn't find any books with that search.
+  p Please check your spelling and try again.
+  p 
+    a(href='/').button Back to Home
