@@ -51,3 +51,8 @@ label {
 input[type=text] {
   font: 16px 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+/* Pagination Table Styling */
+table.pagination {
+  padding-top: 20px;
+}
