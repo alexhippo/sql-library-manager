@@ -4,14 +4,19 @@ body {
 }
 
 a {
-  color: rgb(20,151,116);
+  color: rgb(15,97,75);
   font-weight: bold;
   text-decoration: none;
 }
 
+a:hover,
+a:focus {
+  color: rgb(22,131,100);
+}
+
 a.button, input[type=submit] {
   color: rgb(255,255,255);
-  background-color: rgb(20,151,116);
+  background-color: rgb(15,97,75);
   padding: 10px;
   border-radius: 5px;
   outline: none;
@@ -26,8 +31,8 @@ a.button:focus,
 a.button.active,
 input[type=submit]:hover,
 input[type=submit]:focus {
-  color: rgb(0,0,0);
-  background-color: rgb(27, 201, 154);
+  color: rgb(255,255,255);
+  background-color: rgb(22,131,100);
 }
 
 .error {
