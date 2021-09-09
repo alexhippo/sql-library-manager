@@ -21,6 +21,15 @@ a.button, input[type=submit] {
   cursor: pointer;
 }
 
+a.button:hover,
+a.button:focus,
+a.button.active,
+input[type=submit]:hover,
+input[type=submit]:focus {
+  color: rgb(0,0,0);
+  background-color: rgb(27, 201, 154);
+}
+
 .error {
   color: red;
 }

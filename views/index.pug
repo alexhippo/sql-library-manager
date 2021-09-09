@@ -29,5 +29,9 @@ block content
       tr 
         td Page
         while n < numberOfPages
-          td 
-            a(href=`/books/page/${n}` aria-label=`Page ${n} of ${numberOfPages}`).button #{n++}
+          td
+            if (n == currentPage)
+              a(href=`/books/page/${n}` aria-label=`Currently on Page ${n} of ${numberOfPages - 1}`).button.active #{n++}
+            else 
+              a(href=`/books/page/${n}` aria-label=`Page ${n} of ${numberOfPages - 1}`).button #{n++}
+            

@@ -33,11 +33,14 @@ router.get('/page/:id', asyncHandler(async (req, res) => {
     offset: pageNumber * 10
   });
   const numberOfPages = Math.ceil(pagination.count / 10);
-  res.render("index", { books: pagination.rows, title: "Books", numberOfPages });
+  res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
 }));
 
 /* POST search books listing */
 router.post('/', asyncHandler(async (req, res) => {
+  if (!req.body.search) {
+    res.redirect('/');
+  }
   const books = await Book.findAll({
     where: {
       [Op.or]: {
