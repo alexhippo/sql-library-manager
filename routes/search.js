@@ -41,9 +41,9 @@ router.get('/', asyncHandler(async (req, res) => {
 
   });
   if (books.length > 0) {
-    res.render("search-results", { books, title: "Search results", searchTerm: req.query.q });
+    res.render("search/search-results", { books, title: "Search results", searchTerm: req.query.q });
   } else {
-    res.render("no-search-results", { title: "Search results", searchTerm: req.query.q });
+    res.render("search/no-search-results", { title: "Search results", searchTerm: req.query.q });
   }
 }));
 
