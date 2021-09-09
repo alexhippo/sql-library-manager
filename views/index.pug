@@ -4,11 +4,7 @@ block content
   h1= title
   p  
     a(href="/books/new").button Create New Book 
-  p 
-    form(action="/books", method="post")
-      label(for="search") Search books  
-      input(type="text", name="search")
-      input(type="submit" value="Search")
+  include search
   table.books
     thead 
       tr 
