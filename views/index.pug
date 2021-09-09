@@ -5,21 +5,7 @@ block content
   p  
     a(href="/books/new").button Create New Book 
   include search
-  table.books
-    thead 
-      tr 
-        td Title 
-        td Author 
-        td Genre 
-        td Year
-    tbody
-      each book in books
-        tr 
-          td
-            a(href=`/books/${book.id}`) #{book.title}
-          td= book.author 
-          td= book.genre
-          td= book.year
+  include book-list
   - var n = 1;
     table.pagination 
       tr 
