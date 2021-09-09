@@ -55,4 +55,5 @@ input[type=text] {
 /* Pagination Table Styling */
 table.pagination {
   padding-top: 20px;
+  font-weight: bold;
 }

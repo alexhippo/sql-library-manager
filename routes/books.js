@@ -17,15 +17,20 @@ function asyncHandler(cb) {
 
 /* GET books listing */
 router.get('/', asyncHandler(async (req, res) => {
-  const books = await Book.findAll();
-  res.render("index", { books, title: "Books" });
+  const pagination = await Book.findAndCountAll({
+    limit: 10,
+    offset: 0
+  });
+  const numberOfPages = Math.ceil(pagination.count / 10);
+  res.render("index", { books: pagination.rows, title: "Books", numberOfPages });
 }));
 
 /* Pagination routes */
 router.get('/page/:id', asyncHandler(async (req, res) => {
+  const pageNumber = req.params.id === '1' ? 0 : req.params.id;
   const pagination = await Book.findAndCountAll({
     limit: 10,
-    offset: req.params.id * 10
+    offset: pageNumber * 10
   });
   const numberOfPages = Math.ceil(pagination.count / 10);
   res.render("index", { books: pagination.rows, title: "Books", numberOfPages });

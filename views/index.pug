@@ -24,9 +24,10 @@ block content
           td= book.author 
           td= book.genre
           td= book.year
-  - var n = 0;
+  - var n = 1;
     table.pagination 
       tr 
+        td Page
         while n < numberOfPages
           td 
-            a(href=`/books/page/${n}`).button #{n++}
+            a(href=`/books/page/${n}` aria-label=`Page ${n} of ${numberOfPages}`).button #{n++}
