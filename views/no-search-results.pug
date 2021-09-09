@@ -5,9 +5,9 @@ block content
   p 
     form(action="/books", method="post")
       label(for="search") Search books  
-      input(type="text", name="search")
+      input(type="text", name="search" value=`${searchTerm}`)
       input(type="submit" value="Search")
-  h2 Sorry, we couldn't find any books with that search.
+  h2 Sorry, we couldn't find any books with search term "#{searchTerm}".
   p Please check your spelling and try again.
   p 
     a(href='/').button Back to Home

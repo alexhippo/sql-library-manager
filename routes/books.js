@@ -64,9 +64,9 @@ router.post('/', asyncHandler(async (req, res) => {
 
   });
   if (books.length > 0) {
-    res.render("search-results", { books, title: "Search results" });
+    res.render("search-results", { books, title: "Search results", searchTerm: req.body.search });
   } else {
-    res.render("no-search-results", { title: "Search results" });
+    res.render("no-search-results", { title: "Search results", searchTerm: req.body.search });
   }
 }));
 

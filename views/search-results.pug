@@ -3,9 +3,9 @@ extends layout
 block content
   h1= title
   p 
-    form(action="/books", method="post")
+    form(action="/books" method="post")
       label(for="search") Search books  
-      input(type="text", name="search")
+      input(type="text" name="search" value=`${searchTerm}`)
       input(type="submit" value="Search")
   table.books
     thead 
