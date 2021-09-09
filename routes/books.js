@@ -72,7 +72,7 @@ router.post('/', asyncHandler(async (req, res) => {
 
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
-  res.render('new-book', { title: "New Book" })
+  res.render('new-book', { book: Book.build(), title: "New Book" })
 }));
 
 /* POST books/new form */
