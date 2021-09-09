@@ -22,15 +22,14 @@ router.get('/', asyncHandler(async (req, res) => {
     offset: 0
   });
   const numberOfPages = Math.ceil(pagination.count / 10);
+  const books = await Book.findAll();
+  console.log(books.map(books => books.toJSON()));
   res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: 1 });
 }));
 
 /* Pagination routes */
 router.get('/page/:id', asyncHandler(async (req, res) => {
-  if (req.params.id === '0') {
-    res.redirect('/books/page/1');
-  }
-  const pageNumber = req.params.id === '1' ? 0 : req.params.id;
+  const pageNumber = req.params.id - 1;
   const pagination = await Book.findAndCountAll({
     limit: 10,
     offset: pageNumber * 10
@@ -72,7 +71,7 @@ router.post('/', asyncHandler(async (req, res) => {
 
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
-  res.render('new-book', { book: Book.build(), title: "New Book" })
+  res.render('books/new-book', { book: Book.build(), title: "New Book" })
 }));
 
 /* POST books/new form */
@@ -85,7 +84,7 @@ router.post('/new', asyncHandler(async (req, res) => {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render('new-book', { book, errors: error.errors, title: "New Book" })
+      res.render('books/new-book', { book, errors: error.errors, title: "New Book" })
     } else {
       throw error;
     }
@@ -96,7 +95,7 @@ router.post('/new', asyncHandler(async (req, res) => {
 router.get("/:id", asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render('update-book', { book, title: book.title })
+    res.render('books/update-book', { book, title: book.title })
   } else {
     const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
     err.status = 404;
@@ -123,7 +122,7 @@ router.post("/:id", asyncHandler(async (req, res) => {
     if (error.name === "SequelizeValidationError") {
       book = await Book.build(req.body);
       book.id = req.params.id;
-      res.render('update-book', { book, errors: error.errors, title: "New Book" })
+      res.render('books/update-book', { book, errors: error.errors, title: "New Book" })
     } else {
       throw error;
     }

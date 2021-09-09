@@ -10,10 +10,10 @@ block content
     table.pagination 
       tr 
         td Page
-        while n < numberOfPages
+        while n <= numberOfPages
           td
             if (n == currentPage)
-              a(href=`/books/page/${n}` aria-label=`Currently on Page ${n} of ${numberOfPages - 1}`).button.active #{n++}
+              a(href=`/books/page/${n}` aria-label=`Currently on Page ${n} of ${numberOfPages}`).button.active #{n++}
             else 
-              a(href=`/books/page/${n}` aria-label=`Page ${n} of ${numberOfPages - 1}`).button #{n++}
+              a(href=`/books/page/${n}` aria-label=`Page ${n} of ${numberOfPages}`).button #{n++}
             
