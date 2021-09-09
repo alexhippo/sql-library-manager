@@ -38,37 +38,6 @@ router.get('/page/:id', asyncHandler(async (req, res) => {
   res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
 }));
 
-/* POST search books listing */
-router.post('/', asyncHandler(async (req, res) => {
-  if (!req.body.search) {
-    res.redirect('/');
-  }
-  const books = await Book.findAll({
-    where: {
-      [Op.or]: {
-        title: {
-          [Op.like]: `%${req.body.search}%`
-        },
-        author: {
-          [Op.like]: `%${req.body.search}%`
-        },
-        genre: {
-          [Op.like]: `%${req.body.search}%`
-        },
-        year: {
-          [Op.like]: `%${req.body.search}%`
-        },
-      }
-    }
-
-  });
-  if (books.length > 0) {
-    res.render("search-results", { books, title: "Search results", searchTerm: req.body.search });
-  } else {
-    res.render("no-search-results", { title: "Search results", searchTerm: req.body.search });
-  }
-}));
-
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
   res.render('books/new-book', { book: Book.build(), title: "New Book" })
