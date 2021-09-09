@@ -22,11 +22,14 @@ router.get('/', asyncHandler(async (req, res) => {
     offset: 0
   });
   const numberOfPages = Math.ceil(pagination.count / 10);
-  res.render("index", { books: pagination.rows, title: "Books", numberOfPages });
+  res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: 1 });
 }));
 
 /* Pagination routes */
 router.get('/page/:id', asyncHandler(async (req, res) => {
+  if (req.params.id === '0') {
+    res.redirect('/books/page/1');
+  }
   const pageNumber = req.params.id === '1' ? 0 : req.params.id;
   const pagination = await Book.findAndCountAll({
     limit: 10,
