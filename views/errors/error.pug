@@ -1,6 +1,8 @@
-extends layout
+extends ../layout
 
 block content
   h1 Server Error
   h2= error.message
   pre #{error.stack}
+  p   
+  a(href="/").button Back to Home 

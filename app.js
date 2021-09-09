@@ -58,12 +58,12 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   if (err.status === 404) {
-    res.status(404).render('page-not-found', err);
+    res.status(404).render('errors/page-not-found', err);
   } else {
     err.message = "Sorry! There was an unexpected error on the server.";
     err.status = err.status || 500;
     console.log(`Error Status ${err.status}: ${err.message}`);
-    res.status(err.status || 500).render('error', err);
+    res.status(err.status || 500).render('errors/error', err);
   }
 });
 
