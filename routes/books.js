@@ -102,14 +102,21 @@ router.post("/:id/delete", asyncHandler(async (req, res) => {
 }));
 
 /* Pagination routes */
-router.get('/page/:id', asyncHandler(async (req, res) => {
+router.get('/page/:id', asyncHandler(async (req, res, next) => {
   const pageNumber = req.params.id - 1;
   const pagination = await Book.findAndCountAll({
     limit: 10,
     offset: pageNumber * 10
   });
-  const numberOfPages = Math.ceil(pagination.count / 10);
-  res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
+  if (pagination.length > 0) {
+    const numberOfPages = Math.ceil(pagination.count / 10);
+    res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
+  } else {
+    const err = new Error(`Sorry! We couldn't find the page you were looking for.`);
+    err.status = 404;
+    console.log(`Error Status ${err.status}: ${err.message}`);
+    next(err);
+  }
 }));
 
 module.exports = router;
