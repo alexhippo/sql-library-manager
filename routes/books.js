@@ -108,7 +108,8 @@ router.get('/page/:id', asyncHandler(async (req, res, next) => {
     limit: 10,
     offset: pageNumber * 10
   });
-  if (pagination.length > 0) {
+  console.log(pagination);
+  if (pagination.rows.length > 0) {
     const numberOfPages = Math.ceil(pagination.count / 10);
     res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
   } else {
