@@ -17,7 +17,6 @@ function asyncHandler(cb) {
 
 /* GET search books listing */
 router.get('/', asyncHandler(async (req, res) => {
-  console.log("I used GET!");
   if (!req.query.q) {
     res.redirect('/');
   }
