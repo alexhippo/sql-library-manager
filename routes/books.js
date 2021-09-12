@@ -57,7 +57,6 @@ router.get("/:id", asyncHandler(async (req, res, next) => {
   } else {
     const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
     err.status = 404;
-    console.log(`Error Status ${err.status}: ${err.message}`);
     next(err);
   }
 }));
@@ -73,7 +72,6 @@ router.post("/:id", asyncHandler(async (req, res, next) => {
     } else {
       const err = new Error(`Sorry! We couldn't find the book you were trying to update. It may have been moved, renamed or deleted.`);
       err.status = 404;
-      console.log(`Error Status ${err.status}: ${err.message}`);
       next(err);
     }
   } catch (error) {
@@ -96,32 +94,29 @@ router.post("/:id/delete", asyncHandler(async (req, res, next) => {
   } else {
     const err = new Error(`Sorry! We couldn't find the book you were trying to delete.`);
     err.status = 404;
-    console.log(`Error Status ${err.status}: ${err.message}`);
     next(err);
   }
 }));
 
 /* Pagination routes */
-router.get('/page/:id', asyncHandler(async (req, res, next) => {
-  if (!isNaN(req.params.id)) {
-    const pageNumber = req.params.id - 1;
+router.get('/page/:number', asyncHandler(async (req, res, next) => {
+  if (!isNaN(req.params.number)) {
+    const pageNumber = req.params.number - 1;
     const pagination = await Book.findAndCountAll({
       limit: 10,
       offset: pageNumber * 10
     });
     if (pagination.rows.length > 0) {
       const numberOfPages = Math.ceil(pagination.count / 10);
-      res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
+      res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.number });
     } else {
       const err = new Error(`Sorry! We couldn't find the page you were looking for.`);
       err.status = 404;
-      console.log(`Error Status ${err.status}: ${err.message}`);
       next(err);
     }
   } else {
     const err = new Error(`Sorry! We couldn't find the page you were looking for.`);
     err.status = 404;
-    console.log(`Error Status ${err.status}: ${err.message}`);
     next(err);
   }
 }));
