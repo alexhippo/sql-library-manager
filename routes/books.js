@@ -63,7 +63,7 @@ router.get("/:id", asyncHandler(async (req, res, next) => {
 }));
 
 /* POST an update to an individual book */
-router.post("/:id", asyncHandler(async (req, res) => {
+router.post("/:id", asyncHandler(async (req, res, next) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
@@ -71,7 +71,7 @@ router.post("/:id", asyncHandler(async (req, res) => {
       await book.update(req.body);
       res.redirect('/');
     } else {
-      const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
+      const err = new Error(`Sorry! We couldn't find the book you were trying to update. It may have been moved, renamed or deleted.`);
       err.status = 404;
       console.log(`Error Status ${err.status}: ${err.message}`);
       next(err);
@@ -88,13 +88,13 @@ router.post("/:id", asyncHandler(async (req, res) => {
 }));
 
 /* Delete individual book */
-router.post("/:id/delete", asyncHandler(async (req, res) => {
+router.post("/:id/delete", asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
     await book.destroy();
     res.redirect('/');
   } else {
-    const err = new Error(`Sorry! We couldn't find the book you were looking for.`);
+    const err = new Error(`Sorry! We couldn't find the book you were trying to delete.`);
     err.status = 404;
     console.log(`Error Status ${err.status}: ${err.message}`);
     next(err);
@@ -108,7 +108,6 @@ router.get('/page/:id', asyncHandler(async (req, res, next) => {
     limit: 10,
     offset: pageNumber * 10
   });
-  console.log(pagination);
   if (pagination.rows.length > 0) {
     const numberOfPages = Math.ceil(pagination.count / 10);
     res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
