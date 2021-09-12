@@ -27,17 +27,6 @@ router.get('/', asyncHandler(async (req, res) => {
   res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: 1 });
 }));
 
-/* Pagination routes */
-router.get('/page/:id', asyncHandler(async (req, res) => {
-  const pageNumber = req.params.id - 1;
-  const pagination = await Book.findAndCountAll({
-    limit: 10,
-    offset: pageNumber * 10
-  });
-  const numberOfPages = Math.ceil(pagination.count / 10);
-  res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
-}));
-
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
   res.render('books/new-book', { book: Book.build(), title: "New Book" })
@@ -110,6 +99,17 @@ router.post("/:id/delete", asyncHandler(async (req, res) => {
     console.log(`Error Status ${err.status}: ${err.message}`);
     next(err);
   }
+}));
+
+/* Pagination routes */
+router.get('/page/:id', asyncHandler(async (req, res) => {
+  const pageNumber = req.params.id - 1;
+  const pagination = await Book.findAndCountAll({
+    limit: 10,
+    offset: pageNumber * 10
+  });
+  const numberOfPages = Math.ceil(pagination.count / 10);
+  res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.id });
 }));
 
 module.exports = router;
