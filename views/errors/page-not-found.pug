@@ -1,7 +1,10 @@
 extends ../layout
 
 block content
-  h1 Not Found
-  p= error.message
+  h1 Page Not Found
+  if (error.message)
+    p= error.message
+  else 
+    p Sorry! We couldn't find the page you were looking for.
   p   
     a(href="/").button Back to Home 

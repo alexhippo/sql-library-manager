@@ -110,12 +110,12 @@ router.get('/page/:number', asyncHandler(async (req, res, next) => {
       const numberOfPages = Math.ceil(pagination.count / 10);
       res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: req.params.number });
     } else {
-      const err = new Error(`Sorry! We couldn't find the page you were looking for.`);
+      const err = new Error();
       err.status = 404;
       next(err);
     }
   } else {
-    const err = new Error(`Sorry! We couldn't find the page you were looking for.`);
+    const err = new Error();
     err.status = 404;
     next(err);
   }
