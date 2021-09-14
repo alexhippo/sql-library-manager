@@ -57,11 +57,11 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   if (err.status === 404) {
-    res.status(404).render('errors/page-not-found', err);
+    res.status(404).render('errors/page-not-found', { err, title: "Page Not Found" });
   } else {
     err.message = "Sorry! There was an unexpected error on the server.";
     err.status = err.status || 500;
-    res.status(err.status || 500).render('errors/error', err);
+    res.status(err.status || 500).render('errors/error', { err, title: "Server Error" });
   };
 });
 

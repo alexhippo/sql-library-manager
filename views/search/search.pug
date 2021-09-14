@@ -1,8 +1,7 @@
-p 
-  form(action="/search" method="get")
-    label(for="search") Search books
-    if (searchTerm)  
-      input(type="text" name="q" value=`${searchTerm}`)
-    else 
-      input(type="text" name="q")
-    input(type="submit" value="Search")
+form(action="/search" method="get")
+  label(for="search") Search books
+  if (searchTerm)  
+    input(type="text" name="q" value=`${searchTerm}`)
+  else 
+    input(type="text" name="q")
+  input(type="submit" value="Search")
