@@ -10,6 +10,8 @@ Users can:
 - search for books based on title, author, genre and published year
 - delete books
 
+The app follows the mockup designs in the mockups folder and the markup in the example-markup folder, with some slight tweaks for better accessibility.
+
 ## Motivation
 This project was created as part of the [Treehouse Full Stack Javascript Techdegree](https://teamtreehouse.com/techdegree/full-stack-javascript).
 
@@ -22,6 +24,9 @@ This project was created as part of the [Treehouse Full Stack Javascript Techdeg
 - SQL ORM Sequelize
 
 ## Getting started
+### Please note
+This project runs and has been tested with Sequelize version `^4.2.0`.
+
 ### Downloading
 Click on the 'Code' button and clone this project via command line or select 'Download Zip.'
 
@@ -36,7 +41,7 @@ Click on the 'Code' button and clone this project via command line or select 'Do
 In the project directory, you can run:
 
 ### `npm install`
-To update project dependencies.
+To install and update project dependencies.
 
 ### `npm start`
 Runs the app in the development mode.\
