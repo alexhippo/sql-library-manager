@@ -46,7 +46,6 @@ app.use(function (req, res, next) {
   const err = new Error();
   err.message = `Sorry! We couldn't find the page you were looking for.`;
   err.status = 404;
-  console.log(`Error Status ${err.status}: ${err.message}`);
   next(err);
 });
 
@@ -62,9 +61,8 @@ app.use(function (err, req, res, next) {
   } else {
     err.message = "Sorry! There was an unexpected error on the server.";
     err.status = err.status || 500;
-    console.log(`Error Status ${err.status}: ${err.message}`);
     res.status(err.status || 500).render('errors/error', err);
-  }
+  };
 });
 
 module.exports = app;

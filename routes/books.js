@@ -22,14 +22,17 @@ router.get('/', asyncHandler(async (req, res) => {
     offset: 0
   });
   const numberOfPages = Math.ceil(pagination.count / 10);
+  // For testing purposes only - console log all books:
+  /*
   const books = await Book.findAll();
   console.log(books.map(books => books.toJSON()));
+  */
   res.render("index", { books: pagination.rows, title: "Books", numberOfPages, currentPage: 1 });
 }));
 
 /* GET books/new form */
 router.get('/new', asyncHandler(async (req, res) => {
-  res.render('books/new-book', { book: Book.build(), title: "New Book" })
+  res.render('books/new-book', { book: Book.build(), title: "New Book" });
 }));
 
 /* POST books/new form */
@@ -70,7 +73,7 @@ router.post("/:id", asyncHandler(async (req, res, next) => {
       await book.update(req.body);
       res.redirect('/');
     } else {
-      const err = new Error(`Sorry! We couldn't find the book you were trying to update. It may have been moved, renamed or deleted.`);
+      const err = new Error(`Sorry! We couldn't find the book you were trying to update. It may have been deleted.`);
       err.status = 404;
       next(err);
     }

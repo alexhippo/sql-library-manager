@@ -2,7 +2,6 @@ body {
   padding: 50px;
   font: 20px "serif";
 }
-
 a {
   color: rgb(15,97,75);
   font-weight: bold;
@@ -14,6 +13,7 @@ a:focus {
   color: rgb(22,131,100);
 }
 
+/* Button Styling */
 a.button, input[type=submit] {
   color: rgb(255,255,255);
   background-color: rgb(15,97,75);
