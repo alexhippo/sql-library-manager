@@ -3,11 +3,7 @@ extends ../layout
 block content
   h1= title
   form(action="/books/new" method="post")
-    if (errors)
-      h2.error Oooops! 
-      ul.error  
-        each error in errors 
-          li= error.message 
+    include ../errors/form-error
     include book-form
     p 
       input(type="submit" value="Create New Book")
